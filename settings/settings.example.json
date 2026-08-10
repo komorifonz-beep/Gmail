@@ -1,38 +1,27 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+
+  "_comment_allow": "allow はサーバ名にワイルドカードを使えない（グロブは mcp__<server>__ の後ろのみ）。下の <SERVER> を /permissions で確認した実際のサーバ名に置換すること。claude.ai コネクタ経由の場合は UUID になる。UUID が変わると allow は失効するが、その場合は許可プロンプトが戻ってくるのですぐ気づける（安全側の壊れ方）。",
+
+  "_comment_deny": "deny はワイルドカードが使える（グロブがツール名全体に一致すればよい）。サーバ名部分を * にしておくことで、コネクタを繋ぎ直して UUID が変わっても効き続ける。deny が黙って無効化されるのが最も危険なので、ここだけはサーバ名に依存させない。",
+
   "permissions": {
     "allow": [
-      "mcp__Gmail__search_threads",
-      "mcp__Gmail__get_thread",
-      "mcp__Gmail__get_message",
-      "mcp__Gmail__list_labels",
-      "mcp__Gmail__list_drafts",
-      "mcp__Gmail__create_draft",
-      "mcp__Gmail__update_draft",
-      "mcp__Gmail__label_thread",
-      "mcp__Gmail__label_message",
-      "mcp__Gmail__unlabel_thread",
-      "mcp__Gmail__unlabel_message",
-
-      "mcp__claude_ai_Gmail__search_threads",
-      "mcp__claude_ai_Gmail__get_thread",
-      "mcp__claude_ai_Gmail__get_message",
-      "mcp__claude_ai_Gmail__list_labels",
-      "mcp__claude_ai_Gmail__list_drafts",
-      "mcp__claude_ai_Gmail__create_draft",
-      "mcp__claude_ai_Gmail__update_draft",
-      "mcp__claude_ai_Gmail__label_thread",
-      "mcp__claude_ai_Gmail__label_message",
-      "mcp__claude_ai_Gmail__unlabel_thread",
-      "mcp__claude_ai_Gmail__unlabel_message"
+      "mcp__<SERVER>__search_threads",
+      "mcp__<SERVER>__get_thread",
+      "mcp__<SERVER>__get_message",
+      "mcp__<SERVER>__list_labels",
+      "mcp__<SERVER>__list_drafts",
+      "mcp__<SERVER>__create_draft",
+      "mcp__<SERVER>__update_draft",
+      "mcp__<SERVER>__label_thread"
     ],
     "deny": [
-      "mcp__Gmail__apply_sensitive_message_label",
-      "mcp__Gmail__apply_sensitive_thread_label",
-      "mcp__Gmail__delete_label",
-      "mcp__claude_ai_Gmail__apply_sensitive_message_label",
-      "mcp__claude_ai_Gmail__apply_sensitive_thread_label",
-      "mcp__claude_ai_Gmail__delete_label"
+      "mcp__*__apply_sensitive_message_label",
+      "mcp__*__apply_sensitive_thread_label",
+      "mcp__*__delete_label",
+      "mcp__*__unlabel_message",
+      "mcp__*__unlabel_thread"
     ]
   }
 }
